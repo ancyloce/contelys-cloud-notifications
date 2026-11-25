@@ -3,3 +3,7 @@
 # (CLAUDE.md of contelys-cloud, "Repository rules").
 /docs/
 /.scratch/
+
+# Go workspace files are never committed (layout standard, "Dependencies").
+go.work
+go.work.sum
