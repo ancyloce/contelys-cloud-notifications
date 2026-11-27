@@ -1,0 +1,13 @@
+# The client of Identity's operations that Notifications calls, generated from Identity's contract in
+# the contracts module (Notifications ADR 0002). Identity's contract refers to the shared problem
+# body, whose fields its IdentityProblem merges, so the shared file maps to this package.
+package: gen
+generate:
+  client: true
+  models: true
+output-options:
+  include-operation-ids:
+    - getKeys
+import-mapping:
+  ../shared/problem.yaml: "-"
+output: gen/identity.gen.go

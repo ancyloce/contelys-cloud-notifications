@@ -1,0 +1,13 @@
+# sqlc reads Notifications' migrations as the schema and generates its queries over pgx into gen/,
+# which is committed and never edited by hand (Notifications ADR 0002). Regenerate with
+# GOWORK=off go run github.com/sqlc-dev/sqlc/cmd/sqlc@v1.27.0 generate
+version: "2"
+sql:
+  - engine: postgresql
+    schema: internal/infrastructure/postgres/migrations
+    queries: internal/infrastructure/postgres/queries
+    gen:
+      go:
+        package: gen
+        out: internal/infrastructure/postgres/gen
+        sql_package: pgx/v5

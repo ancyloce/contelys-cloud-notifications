@@ -5,5 +5,31 @@
   "implicitDependencies": [
     "contracts"
   ],
-  "targets": {}
+  "targets": {
+    "lint": {
+      "command": "go vet -tags contract,scenario,layers ./... && test -z \"$(gofmt -l .)\" && go test -tags layers -count=1 ./test/layers/... && docker run --rm -v \"$PWD:/scan:ro\" ghcr.io/gitleaks/gitleaks:v8.30.1@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f dir /scan --no-banner --redact",
+      "options": { "cwd": "{projectRoot}", "env": { "GOWORK": "off" } }
+    },
+    "test": {
+      "command": "go test ./...",
+      "options": { "cwd": "{projectRoot}", "env": { "GOWORK": "off" } }
+    },
+    "build": {
+      "command": "go build -o /dev/null ./...",
+      "options": { "cwd": "{projectRoot}", "env": { "GOWORK": "off" } }
+    },
+    "image": {
+      "command": "docker build --tag contelys/notifications .",
+      "options": { "cwd": "{projectRoot}" }
+    },
+    "contract-test": {
+      "command": "go test -tags contract -count=1 ./test/contract/...",
+      "options": { "cwd": "{projectRoot}", "env": { "GOWORK": "off" } }
+    },
+    "scenario-test": {
+      "command": "go test -tags scenario -count=1 ./test/scenario/...",
+      "options": { "cwd": "{projectRoot}", "env": { "GOWORK": "off" } },
+      "dependsOn": ["image"]
+    }
+  }
 }
