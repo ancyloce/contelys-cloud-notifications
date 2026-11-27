@@ -1,0 +1,15 @@
+# The server interface of the scenarios' fake Identity, generated from Identity's contract in the
+# contracts module (Notifications ADR 0002): the key set, which Notifications' readiness signal
+# reads, the workload tokens that Notifications requests, and the principal lookup.
+package: gen
+generate:
+  std-http-server: true
+  models: true
+output-options:
+  include-operation-ids:
+    - getKeys
+    - issueWorkloadToken
+    - lookUpPrincipals
+import-mapping:
+  ../shared/problem.yaml: "-"
+output: gen/identity.gen.go
